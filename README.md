@@ -2,7 +2,7 @@
 
 음성 파일을 활용하여 Alzheimer 진단하는 AI
 
-<img src="https://github.com/user-attachments/assets/0c20dfeb-042c-4521-9449-f79b5265e0cd" alt="Image" width="800">
+<img src="https://github.com/user-attachments/assets/0c20dfeb-042c-4521-9449-f79b5265e0cd" alt="Image" width="300">
 <br/>
 <br/>
 
@@ -26,6 +26,12 @@ python -m venv venv
 pip install fastapi
 
 pip install uvicorn
+
+pip install soundfile numpy pandas tensorflow python-multipart
+
+pip install librosa matplotlib tensorflow keras
+
+
 ```
 
 ## 실행
@@ -48,10 +54,11 @@ http://localhost:8000/
 # 1\. Project Overview (프로젝트 개요)
 
 - 프로젝트 이름: AI 치매 지킴이
-- 프로젝트 설명: 음성 파일을 활용하여 Alzheimer 진단하는 AI
+- 프로젝트 소개: 음성 파일을 활용하여 Alzheimer 진단하는 AI
 
 - 프로젝트 목적 :
-- 프로젝트 설명 :
+- 프로젝트 설명 : 음성 파일을 이미지로 변환
+  <img src="https://github.com/user-attachments/assets/f1ad7969-6552-49c5-810e-c01b762d5b99" alt="Image" width="100">
 - 프로젝트 결과 :
 
 <br/>
@@ -61,9 +68,9 @@ http://localhost:8000/
 
 |                             김민                              |                             정현석                              |                             이름                              |
 | :-----------------------------------------------------------: | :-------------------------------------------------------------: | :-----------------------------------------------------------: |
-| ![김민](https://avatars.githubusercontent.com/u/59240554?v=4) | ![정현석](https://avatars.githubusercontent.com/u/59240554?v=4) | ![이름](https://avatars.githubusercontent.com/u/59240554?v=4) |
+| ![김민](https://avatars.githubusercontent.com/u/59240554?v=4) | ![정현석](https://avatars.githubusercontent.com/u/87671916?v=4) | ![이름](https://avatars.githubusercontent.com/u/59240554?v=4) |
 |                              BE                               |                               BE                                |                              FE                               |
-|            [GitHub](https://github.com/doraemon49)            |             [GitHub](https://github.com/doraemon49)             |            [GitHub](https://github.com/doraemon49)            |
+|            [GitHub](https://github.com/doraemon49)            |            [GitHub](https://github.com/whilethis00)             |            [GitHub](https://github.com/doraemon49)            |
 
 <br/>
 <br/>
@@ -81,7 +88,7 @@ http://localhost:8000/
 |        |                                                                                           |                                                             |
 | ------ | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | 김민   | <img src="https://avatars.githubusercontent.com/u/59240554?v=4" alt="김민" width="100">   | <ul><li>백엔드 개발</li></ul>                               |
-| 정현석 | <img src="https://avatars.githubusercontent.com/u/59240554?v=4" alt="정현석" width="100"> | <ul><li>프로젝트 계획 및 관리</li><li>백엔드 개발</li></ul> |
+| 정현석 | <img src="https://avatars.githubusercontent.com/u/87671916?v=4" alt="정현석" width="100"> | <ul><li>프로젝트 계획 및 관리</li><li>백엔드 개발</li></ul> |
 | 이름   | <img src="https://avatars.githubusercontent.com/u/59240554?v=4" alt="이름" width="100">   | <ul><li>프론트엔드 개발</li></ul>                           |
 
 <br/>
@@ -103,11 +110,21 @@ http://localhost:8000/
 
 <br/>
 <br/>
-# 6\. Project Structure (프로젝트 구조)
+
+# 6. Project Structure (프로젝트 구조)
 
 ```
 << Back-End >>
+
 📦
+├─ .gitignore
+├─ README.md
+└─ app
+   ├─ main.py
+   └─ utils
+      ├─ 01-wav_to_mfcc.py
+      ├─ 03-class_feature_extractor_SCIvsOTHERS.py
+      └─ 03_class_feature_extractor_MCI_vs_AD.py
 
 
 ```
