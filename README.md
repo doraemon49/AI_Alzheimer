@@ -31,13 +31,13 @@ pip install soundfile numpy pandas tensorflow python-multipart
 
 pip install librosa matplotlib tensorflow keras
 
+pip install pydantic sqlalchemy
 
 ```
 
 ## 실행
 
 ```bash
-python -m venv venv
 
 .\venv\Scripts\Activate
 
