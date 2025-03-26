@@ -7,11 +7,41 @@ from app.utils.first_wav_to_mfcc import Mel_Spectrogram
 from app.utils.third_class_feature_extractor_SCIvsOTHERS import feature_extract_sci_vs_others
 from app.utils.third_class_feature_extractor_MCI_vs_AD import feature_extract_mci_vs_ad
 
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from app.models.database import SessionLocal, engine
+from app.models import models, schemas
+models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
 
+# DB 세션 의존성
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+        
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+@app.post("/signup", response_model=schemas.SignupResponse)
+def signup(request: schemas.SignupRequest, db: Session = Depends(get_db)):
+    if not request.userInfoAgree:
+        return {"status": "fail", "message": "개인정보 수집에 동의하지 않았습니다.", "data": None}
+
+    user = models.User(**request.dict())
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "status": "success",
+        "message": "개인정보 수집에 동의하였습니다.",
+        "data": {"userId": user.id}
+    }
 
 # 모델 로드
 # SCI_MODEL_PATH = "we_dont_have.h5"
