@@ -6,3 +6,12 @@ __pycache__/
 
 # Ignore model files
 *.h5
+
+# User DB
+users.db
+
+# RDS 연결 정보
+.env
+
+# 도커 파일 정보
+.dockerignore
