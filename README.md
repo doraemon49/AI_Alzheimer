@@ -31,7 +31,8 @@ pip install soundfile numpy pandas tensorflow python-multipart
 
 pip install librosa matplotlib tensorflow keras
 
-pip install pydantic sqlalchemy
+pip install pydantic sqlalchemy pymysql
+pip install python-dotenv
 
 ```
 
