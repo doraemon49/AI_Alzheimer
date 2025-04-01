@@ -3,6 +3,7 @@
 
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class SignupRequest(BaseModel):
     userInfoAgree: bool
@@ -20,3 +21,7 @@ class SignupResponse(BaseModel):
     message: str
     data: SignupResponseData | None
 
+class DiagnosisResponse(BaseModel):
+    status: str
+    message: str
+    data: dict
