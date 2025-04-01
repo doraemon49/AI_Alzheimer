@@ -1,5 +1,5 @@
 from keras.models import load_model, Model
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from keras import models
 import numpy as np
 import pandas as pd
@@ -108,31 +108,34 @@ def feature_extract_sci_vs_others(data_path, model_name, save_path, model_path, 
     # else:
     #     df.to_csv(save_path + '/img_features_SvsO-' + str(step_num) + '-' + model_name[-7:-3] + '.csv', index=False)
     
-    
-    # ✅ 이미지 로드 및 전처리
-    img = image.load_img(data_path, target_size=(100, 100))
-    img_tensor = image.img_to_array(img)
-    img_tensor = np.expand_dims(img_tensor, axis=0)
-    img_tensor /= 255.
+    feature_set = []
 
-    print("입력 이미지 텐서의 shape:", img_tensor.shape)
-    # print("모델이 기대하는 input shape:", test_model.input_shape)
+    for img_path in data_path:
+        # 이미지 전처리
+        img = load_img(img_path, target_size=(100, 100))
+        img_array = img_to_array(img)
+        img_tensor = np.expand_dims(img_array, axis=0)
+        img_tensor /= 255.
 
-    # ✅ 특징 추출
-    # features = test_model.predict(img_tensor)[0]
-    features = model.predict(img_tensor)[0]  # 모델을 직접 사용하여 특징 추출
+        print("입력 이미지 텐서의 shape:", img_tensor.shape)
+        # print("모델이 기대하는 input shape:", test_model.input_shape)
 
-    print("추출된 특징 벡터 크기:", features.shape)
+        # ✅ 특징 추출
+        # features = test_model.predict(img_tensor)[0]
+        features = model.predict(img_tensor)[0]
+        feature_set.append(features)
+        print("추출된 특징 벡터 크기:", features.shape)
 
     # ✅ CSV 저장
-    feature_set = [features.tolist()]
-    features_column = ['img_f' + str(i) + '_' + str(step_num) for i in range(len(features))]
+    features_column = [f"img_f{i}_{step_num}" for i in range(len(feature_set[0]))]
     df = pd.DataFrame(feature_set, columns=features_column)
-    df.to_csv(save_path + '/single_img_features.csv', index=False)
+    os.makedirs(save_path, exist_ok=True)
+    csv_name = f"img_features_SvsO-{step_num}-{model_name.replace('.h5','')}.csv"
+    csv_path = os.path.join(save_path, csv_name)
+    df.to_csv(csv_path, index=False)
 
-    print(f"✅ 특징 벡터 저장 완료: {save_path}/single_img_features.csv")
-
-    return features
+    print(f"✅ 특징 벡터 {len(data_path)}개 저장 완료: {csv_path}")
+    return df
 
 # for step_no in [ 1, 3, 4, 8]:
 

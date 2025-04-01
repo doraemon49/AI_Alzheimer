@@ -3,14 +3,15 @@
 
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class SignupRequest(BaseModel):
     userInfoAgree: bool
     userName: str
     userDateOfBirth: date
-    userGender: bool
+    userGender: str
     userEdu: str
-    userPreResult: str
+    userPreResult: Optional[str] = None
 
 class SignupResponseData(BaseModel):
     userId: int
@@ -20,3 +21,7 @@ class SignupResponse(BaseModel):
     message: str
     data: SignupResponseData | None
 
+class DiagnosisResponse(BaseModel):
+    status: str
+    message: str
+    data: dict
