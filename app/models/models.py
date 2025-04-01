@@ -11,4 +11,4 @@ class User(Base):
     userDateOfBirth = Column(Date, nullable=False)
     userGender = Column(String(100), nullable=False)        # 성별  (true: 남성, false: 여성)
     userEdu = Column(String(100), nullable=False)            # 학력
-    userPreResult = Column(String(100), nullable=False)      # 기존 인지 기능 점검 결과(”없음”, “정상”, “SCI” 등 - 미정)
+    userPreResult = Column(String(100), nullable=True)      # 기존 인지 기능 점검 결과(있을 경우 : 사용자가 입력, 없을 경우:null)

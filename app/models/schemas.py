@@ -8,9 +8,9 @@ class SignupRequest(BaseModel):
     userInfoAgree: bool
     userName: str
     userDateOfBirth: date
-    userGender: bool
+    userGender: str
     userEdu: str
-    userPreResult: str
+    userPreResult: Optional[str] = None
 
 class SignupResponseData(BaseModel):
     userId: int

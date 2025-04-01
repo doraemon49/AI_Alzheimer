@@ -13,7 +13,24 @@ from app.models.database import SessionLocal, engine
 from app.models import models, schemas
 models.Base.metadata.create_all(bind=engine)
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
 app = FastAPI()
+
+# 허용할 origin 목록
+origins = [
+    "http://localhost:3000",           # 개발 중 프론트
+    "http://15.165.205.236:3000"      # 혹시 EC2 IP에서 프론트도 띄운다면
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,            # CORS 허용할 Origin
+    allow_credentials=True,
+    allow_methods=["*"],              # 모든 HTTP 메소드 허용
+    allow_headers=["*"],              # 모든 헤더 허용
+)
 
 # DB 세션 의존성
 def get_db():
