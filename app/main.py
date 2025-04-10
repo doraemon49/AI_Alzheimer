@@ -26,7 +26,9 @@ app = FastAPI()
 # 허용할 origin 목록
 origins = [
     "http://localhost:3000",           # 개발 중 프론트
-    "http://15.165.205.236:3000"      # 혹시 EC2 IP에서 프론트도 띄운다면
+    "http://13.125.210.165:3000"
+    "http://13.125.210.165:8000",
+    "http://13.125.210.165" 
 ]
 
 app.add_middleware(
@@ -51,8 +53,6 @@ def read_root():
 
 @app.post("/signup", response_model=schemas.SignupResponse)
 def signup(request: schemas.SignupRequest, db: Session = Depends(get_db)):
-    if not request.userInfoAgree:
-        return {"status": "fail", "message": "개인정보 수집에 동의하지 않았습니다.", "data": None}
 
     user = models.User(**request.dict())
     db.add(user)
